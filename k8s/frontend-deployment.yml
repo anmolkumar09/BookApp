@@ -14,12 +14,12 @@ spec:
     spec:
       containers:
         - name: my-react-app
-          image: anmol040/simple-react-app
+          image: anmol040/simple-react-app:1.5
+          imagePullPolicy: Always
           ports:
-            - containerPort: 3000
+            - containerPort: 80
           resources:
             requests:
               memory: "256Mi" # Request 256 megabytes of memory
             limits:
               memory: "512Mi" # Limit to 512 megabytes of memory
-
