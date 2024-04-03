@@ -9,8 +9,11 @@ import {
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+// const REACT_APP_BACKEND_ENDPOINT = process.env.REACT_APP_BACKEND_ENDPOINT;
 
 export default function AddBook() {
+  console.log("hjjhgjh  :  ", process.env.REACT_APP_BACKEND_ENDPOINT)
+
   const history = useNavigate();
 
   // now we have to handle this form we use useState.
@@ -41,9 +44,10 @@ export default function AddBook() {
   // this function is async function because it is sync task. we want to import axios to send the request.
   //we use await so then used must.
   const sendRequest = async () => {
+
     await axios
-      .post("http://localhost:5000/books", {
-        // we have to send data in string thats why
+    .post(`/api/books`, {
+      // we have to send data in string thats why
         name: String(input.name),
         author: String(input.author),
         description: String(input.description),

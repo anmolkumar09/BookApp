@@ -3,6 +3,7 @@ const app = express();
 const mongoose = require("mongoose");
 const router = require("./routes/book_route");
 const cors = require("cors");
+require('dotenv').config();
 //  Rkh60h9mUYo9NWEx password.
 
 // middleware section
@@ -12,12 +13,11 @@ const cors = require("cors");
 // });
 app.use(express.json()); // it convert all the data to the json very !IMPORTANT and it intialize at the top (rule)
 app.use(cors());
-app.use("/books", router); // localhost:5000/books all the things handle in our (router). now to check run on postman localhost:5000/books.
+app.use("/api/books", router); // localhost:5000/books all the things handle in our (router). now to check run on postman localhost:5000/books.
 
 mongoose
   .connect(
-    "mongodb+srv://xyz:Rkh60h9mUYo9NWEx@cluster0.uyddls8.mongodb.net/bookApp?retryWrites=true&w=majority"
-  )
+    process.env.MONGO_URL )
   .then(() => console.log("connected DataBase"))
   .then(() => {
     app.listen(5000);

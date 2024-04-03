@@ -10,17 +10,19 @@ import {
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+// const REACT_APP_BACKEND_ENDPOINT = process.env.REACT_APP_BACKEND_ENDPOINT;
 
 const BookDetails = () => {
   const [input, setInputs] = useState({});
   const [checked, setChecked] = useState(false);
   const history = useNavigate();
   const id = useParams().id;
+  
   console.log(id);
   useEffect(() => {
     const fetchHandler = async () => {
       await axios
-        .get(`http://localhost:5000/books/${id}`)
+        .get(`/api/books/${id}`)
         .then((resp) => resp.data)
         .then((data) => setInputs(data.books));
       //error milgaya book ki jagha books ayega maine check kiya ki Books.js me useState ke books use h sayad islye use hua h.
@@ -30,7 +32,7 @@ const BookDetails = () => {
 
   const sendRequest = async () => {
     await axios
-      .put(`http://localhost:5000/books/${id}`, {
+      .put(`http://REACT_APP_BACKEND_ENDPOINT/books/${id}`, {
         name: String(input.name),
         author: String(input.author),
         description: String(input.description),

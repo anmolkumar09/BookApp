@@ -8,7 +8,8 @@ Axios is a promise-based HTTP library that lets developers make requests to eith
 */
 import axios from "axios";
 import Book from "./Book";
-const URL = "http://localhost:5000/books";
+// const REACT_APP_BACKEND_ENDPOINT = process.env.REACT_APP_BACKEND_ENDPOINT;
+const URL = `/api/books`;
 
 const fetchHandler = async () => {
   return await axios.get(URL).then((resp) => resp.data);
@@ -16,12 +17,13 @@ const fetchHandler = async () => {
 };
 const Books = () => {
   // now i use eseEffect it run after browser render the components and its runs only One's if we provide any value in the array then it ryrun the array and it will redner whole page in the browser.
+  console.log("books.js url   ", URL)
 
-  const [books, setBooks] = useState();
+  const [books, setBooks] = useState('');
   useEffect(() => {
     fetchHandler().then((data) => setBooks(data.books));
   }, []);
-  console.log(books);
+  // console.log(books);
   // books () get the our two books data.
   return (
     <>

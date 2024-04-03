@@ -2,7 +2,7 @@
 
 # dependencies
 /node_modules
-
+/book_store/node_modules
 /.pnp
 .pnp.js
 

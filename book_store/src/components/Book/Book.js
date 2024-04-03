@@ -9,7 +9,7 @@ const Book = (props) => {
   const history = useNavigate();
   const deleteHandler = async () => {
     await axios
-      .delete(`http://localhost:5000/books/${_id}`)
+      .delete(`/api/books/${_id}`)
       .then((resp) => resp.data)
       .then(() => history("/")) // this is temporary solution.
       .then(() => {
