@@ -32,7 +32,7 @@ const BookDetails = () => {
 
   const sendRequest = async () => {
     await axios
-      .put(`http://REACT_APP_BACKEND_ENDPOINT/books/${id}`, {
+      .put(`/api/books/${id}`, {
         name: String(input.name),
         author: String(input.author),
         description: String(input.description),
