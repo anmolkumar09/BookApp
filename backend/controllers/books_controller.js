@@ -61,7 +61,7 @@ const addBooks = async (req, resp, next) => {
   let books;
 
   // createing destructuring object so that we can use with help of req.body.
-  const { name, author, description, price, available, image } = req.body;
+  const { name, author, description, price, available, image, rating } = req.body;
   try {
     books = new Books({
       // create new instance of book
@@ -71,6 +71,7 @@ const addBooks = async (req, resp, next) => {
       price,
       available,
       image,
+      rating
     });
     // Now to save for save we use metod in moongose
     await books.save();
@@ -88,7 +89,7 @@ const addBooks = async (req, resp, next) => {
 const updateBooks = async (req, resp, next) => {
   let books;
   const id = req.params.id;
-  const { name, author, description, price, available, image } = req.body;
+  const { name, author, description, price, available, image,rating } = req.body;
 
   try {
     // id se lege konsa data aur hume usme kya update karna h like wo pass karunga name,author,description etc.
@@ -99,6 +100,7 @@ const updateBooks = async (req, resp, next) => {
       price,
       available,
       image,
+      rating
     });
     books = await books.save();
   } catch (err) {

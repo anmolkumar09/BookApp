@@ -6,9 +6,10 @@ import {
   FormLabel,
   TextField,
 } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import Rating from "react-rating";
 // const REACT_APP_BACKEND_ENDPOINT = process.env.REACT_APP_BACKEND_ENDPOINT;
 
 export default function AddBook() {
@@ -24,10 +25,13 @@ export default function AddBook() {
     author: "",
     price: "",
     image: "",
+    rating: ""
   });
 
   // this ifor avilable.
   const [checked, setChecked] = useState(false);
+  const [rating3, setRating3] = useState(0); //inital is zero
+  console.log("setRating3:", rating3); //checking ki value aayi hai ya nhi
 
   // by the help of onChange value conatain all latest input value and send to this function.
   const handleChange = (e) => {
@@ -44,19 +48,19 @@ export default function AddBook() {
   // this function is async function because it is sync task. we want to import axios to send the request.
   //we use await so then used must.
   const sendRequest = async () => {
-
     await axios
-    .post(`/api/books`, {
-      // we have to send data in string thats why
+      .post(`/api/books`, {
         name: String(input.name),
         author: String(input.author),
         description: String(input.description),
         price: Number(input.price),
         image: String(input.image),
-        avilable: Boolean(input.checked),
+        rating: rating3, // Corrected line
+        available: checked, // Corrected 'available' property name
       })
-      .then((resp) => resp.data); // data (property) represnt in axios
+      .then((resp) => resp.data);
   };
+
 
   const handleSubmit = (e) => {
     e.preventDefault(); // it prevent whenever reload the page is send.
@@ -126,6 +130,20 @@ export default function AddBook() {
             variant="outlined"
             name="image"
           />
+          <FormLabel>Rating</FormLabel>
+
+          <Rating
+            fractions={2}
+            emptySymbol={<i className="fa fa-star"></i>}
+            fullSymbol={<i className="fa fa-star checked"></i>}
+            initialRating={rating3}
+            onClick={(rate) => {
+              console.log("input rating:", rate); //shows on console
+              setRating3(rate); //store value of rate in setrating3
+            }}
+          />
+
+
           <FormControlLabel
             control={
               <Checkbox
@@ -135,7 +153,7 @@ export default function AddBook() {
             }
             // baiscally it cheked the opposite value
             label="Available"
-            // we give checked = false because we want to true as a dynamically.
+          // we give checked = false because we want to true as a dynamically.
           />
           <Button variant="contained" type="submit">
             Add Book

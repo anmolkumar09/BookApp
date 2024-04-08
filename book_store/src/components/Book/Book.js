@@ -1,12 +1,14 @@
 import { Button } from "@mui/material";
-import React from "react";
 import "./Book.css";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-
+import Rating from "react-rating";
 const Book = (props) => {
-  const { _id, name, author, description, price, image } = props.book;
+  
+  const { _id, name, author, description, price, image,rating } = props.book;
   const history = useNavigate();
+ 
+ 
   const deleteHandler = async () => {
     await axios
       .delete(`/api/books/${_id}`)
@@ -24,6 +26,13 @@ const Book = (props) => {
       <h3>{name}</h3>
       <p>{description}</p>
       <h2>Rs: {price}</h2>
+      <div>
+        <Rating
+          initialRating={rating}
+          emptySymbol={<i className="fa fa-star"></i>}
+          fullSymbol={<i className="fa fa-star checked"></i>}
+        /> 
+      </div>
       <Button LinkComponent={Link} to={`/books/${_id}`} sx={{ mt: "auto" }}>
         Update
       </Button>
