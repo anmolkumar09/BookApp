@@ -7,6 +7,7 @@ import Books from "./components/Book/Books";
 import About from "./components/About";
 import BookDetail from "./components/Book/BookDetails";
 import axios from "axios";
+import Number from "./components/Book/Number";
 function App() {
   // console.log("hjjhgjh  :  ", process.env.REACT_APP_BACKEND_ENDPOINT)
   const response = axios.get('/api/books');
@@ -25,6 +26,7 @@ function App() {
           <Route path="/about" element={<About />} exact />
           {/* <Route path="/books/:id" element={<BookDetail />} exact /> */}
           <Route path="/books/:id" element={<BookDetail />} exact />
+          <Route path="/number" element={<Number />} exact />
 
           {/* books/:id means it take book URL and then update. this BookDetails component will fetch the data from the id */}
         </Routes>

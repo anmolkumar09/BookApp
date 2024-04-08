@@ -10,14 +10,17 @@ import {
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import Rating from "react-rating";
+
 // const REACT_APP_BACKEND_ENDPOINT = process.env.REACT_APP_BACKEND_ENDPOINT;
 
 const BookDetails = () => {
   const [input, setInputs] = useState({});
   const [checked, setChecked] = useState(false);
+  const [rating3, setRating3] = useState(0);
   const history = useNavigate();
   const id = useParams().id;
-  
+
   console.log(id);
   useEffect(() => {
     const fetchHandler = async () => {
@@ -32,13 +35,14 @@ const BookDetails = () => {
 
   const sendRequest = async () => {
     await axios
-      .put(`http://REACT_APP_BACKEND_ENDPOINT/books/${id}`, {
+      .put(`/api/books/${id}`, {
         name: String(input.name),
         author: String(input.author),
         description: String(input.description),
         price: Number(input.price),
         image: String(input.image),
-        avilable: Boolean(input.checked),
+        rating: rating3,
+        avilable: checked,
       })
       .then((resp) => resp.data); // data send bhi to karna h.
   };
@@ -120,21 +124,36 @@ const BookDetails = () => {
               variant="outlined"
               name="image"
             />
+            <Rating
+              fractions={2}
+              value={input.rating3}
+              emptySymbol="fa fa-star"
+              fullSymbol="fa fa-star checked"
+              initialRating={rating3}
+              onClick={rate => setRating3(rate)}
+              
+            />
+            {/* <FormLabel>Ratings</FormLabel> */}
             <FormControlLabel
               control={
                 <Checkbox
                   checked={input.avilable}
                   onChange={() => setChecked(!checked)}
                 />
+                
               }
+              
               // baiscally it cheked the opposite value
               label="Available"
-              // we give checked = false because we want to true as a dynamically.
+            // we give checked = false because we want to true as a dynamically.
             />
             <Button variant="contained" type="submit">
               update Book
             </Button>
+
+            
           </Box>
+          <p>Rating: {rating3}</p>
         </form>
       )}
     </div>

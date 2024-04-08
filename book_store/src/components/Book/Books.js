@@ -32,8 +32,11 @@ const Books = () => {
           {books &&
             books.map((book, i) => (
               <li key={i}>
+                
                 {/* here we get our book component * className used for*/}
-                <Book book={book} />
+                <Book book={book} 
+                
+                />
               </li>
             ))}
         </ul>

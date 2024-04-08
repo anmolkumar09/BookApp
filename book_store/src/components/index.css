@@ -11,3 +11,30 @@ video {
   height: 100%;
   object-fit: cover;
 }
+
+body {
+  margin: 20px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+strong {
+  margin-bottom: 10px;
+  display: block;
+}
+
+p {
+  margin: 5px 0 20px;
+}
+
+.star {
+  color: #269faf;
+}
