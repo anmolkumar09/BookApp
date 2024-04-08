@@ -1,42 +1,55 @@
 import React, { useState } from "react";
-import { AppBar, Tab, Tabs, Toolbar, Typography } from "@mui/material";
+import { AppBar, Tab, Tabs, Toolbar, Typography, InputBase, Button, Box } from "@mui/material";
 import LibraryBooksIcon from "@mui/icons-material/LibraryBooks";
 import { NavLink } from "react-router-dom";
-// NavLink is mainly focus on link when we click on link we can see in url /book or about this can happen by react-router-dom and to.
+
 export default function Header() {
-  const [value, setValue] = useState();
+  const [value, setValue] = useState(0); // Initialize value for Tabs
+  const [filter, setFilter] = useState(""); // State variable for search filter
+
+  const handleFilter = (event) => {
+    setFilter(event.target.value); // Update search filter value
+  };
+
   return (
     <div className="navbar">
-      {/* sx is a propes used for theme */}
       <AppBar sx={{ backgroundColor: "#3C486B" }} position="sticky">
-        {/* (material ui)this helps to render text inside */}
         <Toolbar>
-          {/* Navlink from react-router-dom */}
           <NavLink to={"/"} style={{ color: "white" }}>
             <Typography>
-              {/* below this we can show the icon but we have to import link from material ui */}
               <LibraryBooksIcon />
             </Typography>
           </NavLink>
 
           <Tabs
-            //  ml => margin
             sx={{ ml: "auto" }}
             textColor="inherit"
             indicatorColor="primary"
             value={value}
             onChange={(e, val) => setValue(val)}
           >
-            {/* onChange event take event(e) and value(val) it contains the Number of Tab and event take current.target*/}
+          <div style={{marginRight: '130px', minWidth:"fit-content", display:"flex", alignItems:"center", marginTop:'10px', marginBottom:'10px', borderRadius:"50px", overflow:"hidden"  }}>
+            {/* {/ Box containing search filter input and apply button /} */}
+            <Box sx={{ display: 'flex', alignItems: 'center', background:"white", height:"35px", color:"black" }}>
+              <InputBase
+                placeholder="Search..."
+                value={filter}
+                onChange={handleFilter}
+                style={{ color: 'white', padding: '0 20px', color:"black" }}
+              />
+            </Box>
 
-            {/*LinkComponent is propes it used when href propes provided.  */}
+            <Button variant="contained" color="primary" 
+             style={{ color: 'white', height:'35px', width:'100px', borderRadius:"0"}}>
+              <Tab LinkComponent={NavLink} to={`/books?search=${filter}`} label="Search" />
+            </Button>
+          </div>
             <Tab LinkComponent={NavLink} to="/add" label="Add Product" />
             <Tab LinkComponent={NavLink} to="/books" label="Books" />
             <Tab LinkComponent={NavLink} to="/about" label="Abouts us" />
           </Tabs>
-          {/* Tabs is the container which render the single-single Tab and (in the Tab we can add naviagtion like Home,About us).*/}
+
         </Toolbar>
-        {/* Toolbar helps to create the structure of the application. basically it gives the looks of Navigation Bar.*/}
       </AppBar>
     </div>
   );

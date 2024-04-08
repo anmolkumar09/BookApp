@@ -3,6 +3,25 @@
 const Books = require("../model/book");
 
 const getAllBooks = async (req, resp, next) => {
+  const filterString = req.query.filterString;
+  if(filterString)
+  {
+    console.log("this api is called with filterstring = ", filterString)
+
+    try {
+      const regex = new RegExp(filterString, "i");
+      // The $regex operator searches for the specified string pattern in the 'title' field
+      // The $options: 'i' ensures case-insensitive matching
+      query = { name: { $regex: regex } };
+      const books = await Books.find(query);
+      console.log(books)
+      return resp.json({ books }); // Send the filtered books as the response
+    } catch (err) {
+      console.log(err);
+      return resp.status(500).json({ error: 'Internal Server Error' }); // Handle error appropriately
+    }
+
+  }
   // this route will provide all of the books.
   let books;
   //   here we will use async and await.
@@ -17,7 +36,8 @@ const getAllBooks = async (req, resp, next) => {
   if (!books) {
     return resp.status(404).json({ message: "No Products Found" });
   }
-  return resp.status(200).json({ books });
+  console.log(books)
+  return resp.json({ books });
 };
 
 const getById = async (req, resp, next) => {
