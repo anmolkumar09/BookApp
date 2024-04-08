@@ -2,13 +2,16 @@ import React, { useState } from "react";
 import { AppBar, Tab, Tabs, Toolbar, Typography, InputBase, Button, Box } from "@mui/material";
 import LibraryBooksIcon from "@mui/icons-material/LibraryBooks";
 import { NavLink } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 
 export default function Header() {
   const [value, setValue] = useState(0); // Initialize value for Tabs
   const [filter, setFilter] = useState(""); // State variable for search filter
+  const navigate = useNavigate();
 
   const handleFilter = (event) => {
     setFilter(event.target.value); // Update search filter value
+    navigate(`/books?search=${event.target.value}`);
   };
 
   return (
@@ -38,11 +41,6 @@ export default function Header() {
                 style={{ color: 'white', padding: '0 20px', color:"black" }}
               />
             </Box>
-
-            <Button variant="contained" color="primary" 
-             style={{ color: 'white', height:'35px', width:'100px', borderRadius:"0"}}>
-              <Tab LinkComponent={NavLink} to={`/books?search=${filter}`} label="Search" />
-            </Button>
           </div>
             <Tab LinkComponent={NavLink} to="/add" label="Add Product" />
             <Tab LinkComponent={NavLink} to="/books" label="Books" />
